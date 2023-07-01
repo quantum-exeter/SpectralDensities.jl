@@ -17,18 +17,18 @@ struct OhmicSD <: AbstractSD
 end
  
 """
-    OhmicSD(α)
+    OhmicSD(α::Real)
 
 Construct an Ohmic spectral density with amplitude `α`.
 
 # Arguments
-- `α`: The amplitude `α`, indicating the strength of the Ohmic coupling.
+- `α::Real`: The amplitude `α`, indicating the strength of the Ohmic coupling.
 
 # Returns
 - An instance of the `OhmicSD` struct representing the Ohmic spectral density.
 
 """
-OhmicSD(α) = OhmicSD(float(α))
+OhmicSD(α::Real) = OhmicSD(float(α))
  
 sdoverω(J::OhmicSD, ω) = J.α
 

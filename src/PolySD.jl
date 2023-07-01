@@ -19,19 +19,19 @@ struct PolySD <: AbstractSD
 end
 
 """
-    PolySD(α, n::Int)
+    PolySD(α::Real, n::Int)
 
 Construct a polynomial spectral density with the given amplitude `α` and degree `n`.
 
 # Arguments
-- `α`: The amplitude `α`, indicating the strength of the coupling.
+- `α::Real`: The amplitude `α`, indicating the strength of the coupling.
 - `n::Int`: The polynomial degree.
 
 # Returns
 - An instance of the `PolySD` struct representing the polynomial spectral density.
 
 """
-PolySD(α, n::Int) = PolySD(float(α), n)
+PolySD(α::Real, n::Int) = PolySD(float(α), n)
  
 sdoverω(J::PolySD, ω) = J.α*(ω^(J.n-1))
 

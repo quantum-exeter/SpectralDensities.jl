@@ -19,19 +19,19 @@ struct DebyeSD <: AbstractSD
 end
 
 """
-    DebyeSD(α, ωc)
+    DebyeSD(α::Real, ωc::Real)
 
 Construct a Debye spectral density with the given amplitude `α` and cutoff frequency `ωc`.
 
 # Arguments
-- `α`: The amplitude `α`, indicating the strength of the coupling.
-- `ωc`: The cutoff frequency.
+- `α::Real`: The amplitude `α`, indicating the strength of the coupling.
+- `ωc::Real`: The cutoff frequency.
 
 # Returns
 - An instance of the `DebyeSD` struct representing the Debye spectral density.
 
 """
-DebyeSD(α, ωc) = DebyeSD(float(α), float(ωc))
+DebyeSD(α::Real, ωc::Real) = DebyeSD(float(α), float(ωc))
 
 sdoverω(J::DebyeSD, ω) = (2*J.α/π)*J.ωc^2/(J.ωc^2 + ω^2)
 

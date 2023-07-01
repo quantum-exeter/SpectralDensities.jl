@@ -22,20 +22,20 @@ struct LorentzianSD <: AbstractSD
 end
 
 """
-    LorentzianSD(α, ω0, Γ)
+    LorentzianSD(α::Real, ω0::Real, Γ::Real)
 
 Construct a Lorentzian spectral density with the given amplitude `α`, centre frequency `ω0`, and width `Γ`.
 
 # Arguments
-- `α`: The amplitude `α`, indicating the strength of the coupling.
-- `ω0`: The centre frequency of the Lorentzian peak.
-- `Γ`: The width of the Lorentzian peak.
+- `α::Real`: The amplitude `α`, indicating the strength of the coupling.
+- `ω0::Real`: The centre frequency of the Lorentzian peak.
+- `Γ::Real`: The width of the Lorentzian peak.
 
 # Returns
 - An instance of the `LorentzianSD` struct representing the Lorentzian spectral density.
 
 """
-LorentzianSD(α, ω0, Γ) = LorentzianSD(float(α), float(ω0), float(Γ))
+LorentzianSD(α::Real, ω0::Real, Γ::Real) = LorentzianSD(float(α), float(ω0), float(Γ))
 
 sdoverω(J::LorentzianSD, ω) = (J.α*J.Γ/π)/((ω^2 - J.ω0^2)^2 + (J.Γ*ω)^2)
 
