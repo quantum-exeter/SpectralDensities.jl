@@ -11,5 +11,13 @@ using Test
     
         Jdebye = DebyeSD(rand(), rand()*10)
         @test Q(Jdebye) ≈ reorganisation_energy(Jdebye)
+
+        Johmic = OhmicSD(rand()*10)
+        Jpoly = PolySD(rand()*10, 7)
+
+        Johmic_hard = HardCutoffSD(Johmic, rand()*20)
+        @test Q(Johmic_hard) ≈ reorganisation_energy(Johmic_hard)
+        Jpoly_hard = HardCutoffSD(Jpoly, rand()*20)
+        @test Q(Jpoly_hard) ≈ reorganisation_energy(Jpoly_hard)
     end
 end

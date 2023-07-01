@@ -22,4 +22,8 @@ include("DebyeSD.jl")
 
 export DebyeSD, OverdampedSD, LorentzDrudeSD
 
+include("HardCutoffSD.jl")
+
+export HardCutoffSD
+
 end
