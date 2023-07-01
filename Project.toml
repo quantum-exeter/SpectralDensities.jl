@@ -1,0 +1,13 @@
+name = "SpectralDensities"
+uuid = "6f27643f-8ff7-45b5-8e20-15c87f132b4c"
+authors = ["Federico Cerisola <federico@cerisola.net"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.7"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
