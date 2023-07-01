@@ -1,5 +1,9 @@
 module SpectralDensities
 
-# Write your package code here.
+using QuadGK
+
+include("AbstractSD.jl")
+
+export AbstractSD, sd, sdoverω, reorganisation_energy, correlations
 
 end
