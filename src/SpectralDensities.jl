@@ -18,4 +18,8 @@ include("LorentzianSD.jl")
 
 export LorentzianSD
 
+include("DebyeSD.jl")
+
+export DebyeSD, OverdampedSD, LorentzDrudeSD
+
 end

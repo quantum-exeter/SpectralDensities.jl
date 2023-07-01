@@ -8,5 +8,8 @@ using Test
 
         Jlor = LorentzianSD(rand()*1.5, rand(), rand()/2)
         @test Q(Jlor) ≈ reorganisation_energy(Jlor)
+    
+        Jdebye = DebyeSD(rand(), rand()*10)
+        @test Q(Jdebye) ≈ reorganisation_energy(Jdebye)
     end
 end
