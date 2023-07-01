@@ -16,7 +16,7 @@ export PolySD
 
 include("LorentzianSD.jl")
 
-export LorentzianSD
+export LorentzianSD, UnderdampedSD
 
 include("DebyeSD.jl")
 
