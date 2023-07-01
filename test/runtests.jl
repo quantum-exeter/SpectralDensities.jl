@@ -19,5 +19,10 @@ using Test
         @test Q(Johmic_hard) ≈ reorganisation_energy(Johmic_hard)
         Jpoly_hard = HardCutoffSD(Jpoly, rand()*20)
         @test Q(Jpoly_hard) ≈ reorganisation_energy(Jpoly_hard)
+
+        Johmic_exp = ExponentialCutoffSD(Johmic, rand()*20)
+        @test Q(Johmic_exp) ≈ reorganisation_energy(Johmic_exp)
+        Jpoly_exp = ExponentialCutoffSD(Jpoly, rand()*20)
+        @test Q(Jpoly_exp) ≈ reorganisation_energy(Jpoly_exp)
     end
 end

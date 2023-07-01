@@ -26,4 +26,8 @@ include("HardCutoffSD.jl")
 
 export HardCutoffSD
 
+include("ExponentialCutoffSD.jl")
+
+export ExponentialCutoffSD
+
 end
