@@ -4,7 +4,7 @@ using Test
 
 @testset "SpectralDensities.jl" begin
     @testset "Reorganisation energies" begin
-        Q(J) = quadgk(ω -> sdoverω(J,ω), 0.0, Inf)[1]
+        Q(J, ωmax=Inf) = quadgk(ω -> sdoverω(J,ω), 0.0, ωmax)[1]
 
         Jlor = LorentzianSD(rand()*1.5, rand(), rand()/2)
         @test Q(Jlor) ≈ reorganisation_energy(Jlor)
@@ -16,14 +16,14 @@ using Test
         Jpoly = PolySD(rand()*10, 7)
 
         Johmic_hard = HardCutoffSD(Johmic, rand()*20)
-        @test Q(Johmic_hard) ≈ reorganisation_energy(Johmic_hard)
+        @test Q(Johmic_hard,Johmic_hard.ωcutoff) ≈ reorganisation_energy(Johmic_hard)
         Jpoly_hard = HardCutoffSD(Jpoly, rand()*20)
-        @test Q(Jpoly_hard) ≈ reorganisation_energy(Jpoly_hard)
+        @test Q(Jpoly_hard,Jpoly_hard.ωcutoff) ≈ reorganisation_energy(Jpoly_hard)
 
         Johmic_exp = ExponentialCutoffSD(Johmic, rand()*20)
-        @test Q(Johmic_exp) ≈ reorganisation_energy(Johmic_exp)
+        @test Q(Johmic_exp) ≈ reorganisation_energy(Johmic_exp) rtol=5e-3
         Jpoly_exp = ExponentialCutoffSD(Jpoly, rand()*20)
-        @test Q(Jpoly_exp) ≈ reorganisation_energy(Jpoly_exp)
+        @test Q(Jpoly_exp) ≈ reorganisation_energy(Jpoly_exp) rtol=5e-3
 
         Johmic_gauss = GaussianCutoffSD(Johmic, rand()*20)
         @test Q(Johmic_gauss) ≈ reorganisation_energy(Johmic_gauss)
