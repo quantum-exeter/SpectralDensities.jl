@@ -10,4 +10,8 @@ include("OhmicSD.jl")
 
 export OhmicSD
 
+include("PolySD.jl")
+
+export PolySD
+
 end
