@@ -14,4 +14,8 @@ include("PolySD.jl")
 
 export PolySD
 
+include("LorentzianSD.jl")
+
+export LorentzianSD
+
 end
