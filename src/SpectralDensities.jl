@@ -1,6 +1,7 @@
 module SpectralDensities
 
 using QuadGK
+using SpecialFunctions
 
 include("AbstractSD.jl")
 
@@ -29,5 +30,9 @@ export HardCutoffSD
 include("ExponentialCutoffSD.jl")
 
 export ExponentialCutoffSD
+
+include("GaussianCutoffSD.jl")
+
+export GaussianCutoffSD
 
 end

@@ -24,5 +24,10 @@ using Test
         @test Q(Johmic_exp) ≈ reorganisation_energy(Johmic_exp)
         Jpoly_exp = ExponentialCutoffSD(Jpoly, rand()*20)
         @test Q(Jpoly_exp) ≈ reorganisation_energy(Jpoly_exp)
+
+        Johmic_gauss = GaussianCutoffSD(Johmic, rand()*20)
+        @test Q(Johmic_gauss) ≈ reorganisation_energy(Johmic_gauss)
+        Jpoly_gauss = GaussianCutoffSD(Jpoly, rand()*20)
+        @test Q(Jpoly_gauss) ≈ reorganisation_energy(Jpoly_gauss)
     end
 end
