@@ -35,4 +35,18 @@ include("GaussianCutoffSD.jl")
 
 export GaussianCutoffSD
 
+module WeakCoupling
+    using ForwardDiff
+    using QuadGK
+    using ..SpectralDensities
+
+    include("WeakCoupling.jl")
+
+    export weak_coupling_Δ, weak_coupling_Δprime,
+           weak_coupling_Σ, weak_coupling_Σprime,
+           cauchy_quadgk, hadamard_quadgk
+end
+
+export WeakCoupling
+
 end

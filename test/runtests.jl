@@ -1,5 +1,6 @@
 using SpectralDensities
 using QuadGK
+using ForwardDiff
 using Test
 
 @testset "SpectralDensities.jl" begin
@@ -29,5 +30,11 @@ using Test
         @test Q(Johmic_gauss) ≈ reorganisation_energy(Johmic_gauss)
         Jpoly_gauss = GaussianCutoffSD(Jpoly, rand()*20)
         @test Q(Jpoly_gauss) ≈ reorganisation_energy(Jpoly_gauss)
+    end
+
+    @testset "Weak coupling" begin
+        @test WeakCoupling.cauchy_quadgk(x -> 1/(x+2), -1.0, 1.0)[1] ≈ -log(3)/2
+        @test WeakCoupling.cauchy_quadgk(x -> x^2, 0.0, 2.0, 1.0)[1] ≈ 4.0
+        @test WeakCoupling.hadamard_quadgk(x -> log(x+1), x -> 1/(x+1), 0.0, 2.0, 1.0)[1] ≈ -3*log(9)/4
     end
 end
