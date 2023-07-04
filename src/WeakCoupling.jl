@@ -16,8 +16,7 @@ See: J.D. Cresser, J. Anders, Phys. Rev. Lett. 127, 250601 (2021).
 - `β`: The inverse temperature.
 
 # Returns
-- The weak-coupling coefficient `Δ` for the spectral density `J`,
-system Bohr frequency `ωB`, and inverse temperature `β`.
+- The weak-coupling coefficient `Δ` for the spectral density `J`, system Bohr frequency `ωB`, and inverse temperature `β`.
 
 """
 function weak_coupling_Δ(J::AbstractSD, ωB, β)
@@ -46,8 +45,7 @@ with `ForwardDiff.jl`.
 - `β`: The inverse temperature.
 
 # Returns
-- The weak-coupling coefficient `Δ′` for the spectral density `J`,
-system Bohr frequency `ωB`, and inverse temperature `β`.
+- The weak-coupling coefficient `Δ′` for the spectral density `J`, system Bohr frequency `ωB`, and inverse temperature `β`.
 
 """
 function weak_coupling_Δprime(J::AbstractSD, ωB, β)
@@ -72,8 +70,7 @@ See: J.D. Cresser, J. Anders, Phys. Rev. Lett. 127, 250601 (2021).
 - `ωB`: The system Bohr frequency of interest.
 
 # Returns
-- The weak-coupling coefficient `Σ` for the spectral density `J`
-and system Bohr frequency `ωB`.
+- The weak-coupling coefficient `Σ` for the spectral density `J` and system Bohr frequency `ωB`.
 
 """
 function weak_coupling_Σ(J::AbstractSD, ωB)
@@ -101,8 +98,7 @@ with `ForwardDiff.jl`.
 - `ωB`: The system Bohr frequency of interest.
 
 # Returns
-- The weak-coupling coefficient `Σ′` for the spectral density `J`
-and system Bohr frequency `ωB`.
+- The weak-coupling coefficient `Σ′` for the spectral density `J` and system Bohr frequency `ωB`.
 
 """
 function weak_coupling_Σprime(J::AbstractSD, ωB)
