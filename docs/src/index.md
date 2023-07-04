@@ -2,7 +2,7 @@
 CurrentModule = SpectralDensities
 ```
 
-# SpectralDensities
+# SpectralDensities.jl
 
 This package implements commonly used spectral densities for
 Open Quantum Systems and typical operations on them.
