@@ -11,7 +11,7 @@ system Bohr frequency `ωB`, and inverse temperature `β`, defined as
 See: J.D. Cresser, J. Anders, Phys. Rev. Lett. 127, 250601 (2021).
 
 # Arguments
-- `J::AbstractSD`: A supramolecular system of type `AbstractSD`.
+- `J::AbstractSD`: The spectral density.
 - `ωB`: The system Bohr frequency of interest.
 - `β`: The inverse temperature.
 
@@ -40,7 +40,7 @@ Note: The spectral density `J` must support automatic differentiation
 with `ForwardDiff.jl`.
 
 # Arguments
-- `J::AbstractSD`: A supramolecular system of type `AbstractSD`.
+- `J::AbstractSD`: The spectral density.
 - `ωB`: The system Bohr frequency of interest.
 - `β`: The inverse temperature.
 
@@ -66,7 +66,7 @@ and system Bohr frequency `ωB`, defined as
 See: J.D. Cresser, J. Anders, Phys. Rev. Lett. 127, 250601 (2021).
 
 # Arguments
-- `J::AbstractSD`: A supramolecular system of type `AbstractSD`.
+- `J::AbstractSD`: The spectral denstiy.
 - `ωB`: The system Bohr frequency of interest.
 
 # Returns
@@ -94,7 +94,7 @@ Note: The spectral density `J` must support automatic differentiation
 with `ForwardDiff.jl`.
 
 # Arguments
-- `J::AbstractSD`: A supramolecular system of type `AbstractSD`.
+- `J::AbstractSD`: The spectral density.
 - `ωB`: The system Bohr frequency of interest.
 
 # Returns
