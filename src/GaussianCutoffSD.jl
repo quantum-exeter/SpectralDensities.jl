@@ -7,7 +7,7 @@ and the frequency cutoff `ωcutoff`.
 That is
 ```math
 J_\\mathrm{gauss}(\\omega) = J(\\omega)e^{-\\omega^2/\\omega_c^2}
-`````
+```
 
 # Fields
 - `J::T`: The underlying spectral density.
