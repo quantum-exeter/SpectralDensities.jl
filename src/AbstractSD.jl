@@ -83,3 +83,39 @@ function correlations(J::AbstractSD, τ, β)
     IIm = quadgk(IntIm, 0.0, Inf)[1]
     return IRe + 1im*IIm
 end
+
+"""
+    memory_kernel(J::AbstractSD, τ)
+
+Calculate the memory kernel for a spectral density `J` at a given time delay `τ`,
+that is
+```math
+\\mathcal{K}(\\tau) = 2\\Theta(\\tau)\\int_0^\\infty J(\\omega)\\sin(\\omega)\\mathrm{d}\\omega,
+```
+where ``\\Theta`` is the Heavisde theta function.
+
+# Arguments
+- `J::AbstractSD`: The spectral density.
+- `τ`: The time delay at which the memory kernel is evaluated.
+
+# Returns
+- The memory kernel for the spectral density `J` at the given time delay `τ`.
+
+"""
+memory_kernel(J::AbstractSD, τ) = τ <= zero(τ) ? zero(τ) : quadgk(ω -> 2*J(ω)*sin(ω*τ), zero(τ), Inf)[1]
+
+"""
+    imag_memory_kernel_ft(J::AbstractSD, ω)
+
+Calculate the imaginary part of the Fourier-transform of the  memory kernel for a
+spectral density `J` at a given frequency `ω`.
+
+# Arguments
+- `J::AbstractSD`: The spectral density.
+- `ω`: The frequency at which the imaginary part of the Fourier-transform of the memory kernel is evaluated.
+
+# Returns
+- The imaginary part of the Fourier-transform of the memory kernel for the spectral density `J` at the given frequency `ω`.
+
+"""
+imag_memory_kernel_ft(J::AbstractSD, ω) = π*J(ω)
