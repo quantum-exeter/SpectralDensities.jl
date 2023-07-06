@@ -14,6 +14,7 @@ Features of SpectralDensities.jl include:
 * Flexibility to choose desidred cutoff functions: hard cutoffs, exponential cutoff, gaussian cutoff.
 * Calculation of the correlation function of a given spectral density (with specialised methods for the pre-defined types)
 * Calculation of reorganisation energy of a given spectral density (with specialised methods for the pre-defined types)
+* Calculation of the memory kernel of a given spectral density, both in the time domain, and the imaginary part in the Fourier domain (with specialised methods for some of the pre-defined types)
 * Methods to compute the spectral density integrals that appear in the weak coupling (2nd order expansion), both for the dynamics (see e.g. H. Breuer, F. Petruccione, "The Theory of Open Quantum Systems"), and the equilibrium mean-force state (see e.g. J.D. Cresser, J. Anders, Phys. Rev. Lett. 127, 250601 (2021)).
 
 ## Quick start
