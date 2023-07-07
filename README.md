@@ -7,8 +7,13 @@
 SpectralDensities.jl is a package that defines commonly used spectral densities for Open Quantum Systems and typical operations on them.
 
 ## Installation
-SpectralDensities.jl is currently not yet on the Julia General Registry. However, it can be simply installed by running:
+To install the latest stable release of SpectralDensities.jl, you can use Julia's built-in package manager.
+From the Julia interpreter press the `]` key and run
+```Julia
+pkg> add SpectralDensities
+```
+Alternatively, you can import the Pkg package and call `add` from it
 ```Julia
 using Pkg;
-Pkg.add(url="https://github.com/quantum-exeter/SpectralDensities.jl")
+Pkg.add("SpectralDensities")
 ```
