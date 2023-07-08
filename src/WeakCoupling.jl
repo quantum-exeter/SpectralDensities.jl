@@ -1,12 +1,12 @@
 """
-    weak_coupling_Δ(J::AbstractSD, ωB, β)
+    weak_coupling_Δ(J::AbstractSD, ωB, β; ħ=one(ωB))
 
 Calculate the weak-coupling coefficient `Δ` for the spectral density `J`,
 system Bohr frequency `ωB`, and inverse temperature `β`, defined as
 ```math
 \\Delta_\\beta(\\omega_\\mathrm{B}) = 2\\omega_\\mathrm{B}\\int_0^\\infty
     J(\\omega)\\frac{1}{\\omega^2-\\omega_\\mathrm{B}^2}
-    \\coth\\left(\\frac{\\beta\\omega}{2}\\right) \\mathrm{d}\\omega
+    \\coth\\left(\\frac{\\beta\\hbar\\omega}{2}\\right) \\mathrm{d}\\omega
 ```
 See: J.D. Cresser, J. Anders, Phys. Rev. Lett. 127, 250601 (2021).
 
@@ -14,25 +14,26 @@ See: J.D. Cresser, J. Anders, Phys. Rev. Lett. 127, 250601 (2021).
 - `J::AbstractSD`: The spectral density.
 - `ωB`: The system Bohr frequency of interest.
 - `β`: The inverse temperature.
+- `ħ`: The value of the reduced Planck constant. Default is 1.
 
 # Returns
 - The weak-coupling coefficient `Δ` for the spectral density `J`, system Bohr frequency `ωB`, and inverse temperature `β`.
 
 """
-function weak_coupling_Δ(J::AbstractSD, ωB, β)
-    g(ω) = 2*J(ω)*abs(ωB)*coth(β*ω/2)/(ω + abs(ωB))
+function weak_coupling_Δ(J::AbstractSD, ωB, β; ħ=one(ωB))
+    g(ω) = 2*J(ω)*abs(ωB)*coth(β*ħ*ω/2)/(ω + abs(ωB))
     return cauchy_quadgk(g, zero(ωB), Inf, abs(ωB))[1]
 end
 
 """
-    weak_coupling_Δprime(J::AbstractSD, ωB, β)
+    weak_coupling_Δprime(J::AbstractSD, ωB, β; ħ=one(ωB))
 
 Calculate the weak-coupling coefficient `Δ′` for the spectral density `J`,
 system Bohr frequency `ωB`, and inverse temperature `β`, defined as
 ```math
 {\\Delta'}_\\beta(\\omega_\\mathrm{B}) = 2\\int_0^\\infty
     J(\\omega)\\frac{(\\omega^2 + \\omega_\\mathrm{B}^2)}{(\\omega^2-\\omega_\\mathrm{B}^2)^2}
-    \\coth\\left(\\frac{\\beta\\omega}{2}\\right) \\mathrm{d}\\omega
+    \\coth\\left(\\frac{\\beta\\hbar\\omega}{2}\\right) \\mathrm{d}\\omega
 ```
 See: J.D. Cresser, J. Anders, Phys. Rev. Lett. 127, 250601 (2021).
 
@@ -43,13 +44,14 @@ with `ForwardDiff.jl`.
 - `J::AbstractSD`: The spectral density.
 - `ωB`: The system Bohr frequency of interest.
 - `β`: The inverse temperature.
+- `ħ`: The value of the reduced Planck constant. Default is 1.
 
 # Returns
 - The weak-coupling coefficient `Δ′` for the spectral density `J`, system Bohr frequency `ωB`, and inverse temperature `β`.
 
 """
-function weak_coupling_Δprime(J::AbstractSD, ωB, β)
-    g(ω) = 2*J(ω)*(ω^2 + ωB^2)*coth(β*ω/2)/(ω + abs(ωB))^2
+function weak_coupling_Δprime(J::AbstractSD, ωB, β; ħ=one(ωB))
+    g(ω) = 2*J(ω)*(ω^2 + ωB^2)*coth(β*ħ*ω/2)/(ω + abs(ωB))^2
     g′(ω) = ForwardDiff.derivative(g,ω)
     return hadamard_quadgk(g, g′, zero(ωB), Inf, abs(ωB))[1]
 end
