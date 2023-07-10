@@ -5,7 +5,7 @@ using SpecialFunctions
 
 include("AbstractSD.jl")
 
-export AbstractSD, sd, sdoverω, reorganisation_energy, correlations
+export AbstractSD, sd, sdoverω, reorganisation_energy, correlations, memory_kernel, imag_memory_kernel_ft
 
 include("OhmicSD.jl")
 
