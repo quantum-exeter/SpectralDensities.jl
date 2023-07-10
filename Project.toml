@@ -1,7 +1,7 @@
 name = "SpectralDensities"
 uuid = "6f27643f-8ff7-45b5-8e20-15c87f132b4c"
 authors = ["Federico Cerisola <federico@cerisola.net"]
-version = "0.1.0"
+version = "0.2.0"
 
 [deps]
 ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
