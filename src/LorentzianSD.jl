@@ -49,8 +49,6 @@ function memory_kernel(J::LorentzianSD, τ)
     return J.α*exp(-J.Γ*τ/2)*sin(ω1*τ)/ω1
 end
 
-imag_memory_kernel_ft(J::LorentzianSD, ω) = J.α/(J.ω0^2 - ω^2 - 1im*ω*J.Γ)
-
 """
     struct UnderdampedSD <: AbstractSD
 
