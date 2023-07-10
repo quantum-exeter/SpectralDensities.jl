@@ -37,4 +37,10 @@ using Test
         @test WeakCoupling.cauchy_quadgk(x -> x^2, 0.0, 2.0, 1.0)[1] ≈ 4.0
         @test WeakCoupling.hadamard_quadgk(x -> log(x+1), x -> 1/(x+1), 0.0, 2.0, 1.0)[1] ≈ -3*log(9)/4
     end
+
+    @testset "Memory kernels" begin
+        Jlor = LorentzianSD(rand()*1.5, rand(), rand()/2)
+        ωtest = rand(50)*5
+        @test imag_memory_kernel_ft.(Jlor,ωtest) ≈ π*Jlor.(ωtest)
+    end
 end
