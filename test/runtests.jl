@@ -60,9 +60,15 @@ using Test
     end
 
     @testset "Memory kernels" begin
-        Jlor = LorentzianSD(rand()*1.5, rand(), rand()/2)
+        α, ω0, Γ = rand(), 2*rand(), rand()/10
+        Jlor = LorentzianSD(α, ω0, Γ)
         ωtest = rand(50)*5
         @test imag_memory_kernel_ft.(Jlor,ωtest) ≈ π*Jlor.(ωtest)
+        @test imag_memory_kernel_ft.(Jlor,ωtest) ≈ imag.(memory_kernel_ft.(Jlor,ωtest))
+        @test real_memory_kernel_ft.(Jlor,ωtest) ≈ real.(memory_kernel_ft.(Jlor,ωtest))
+
+        lor_ker_re(ω) = SingularIntegrals.kramers_kronig(ω -> imag_memory_kernel_ft(Jlor,ω), ω; cutoff=frequency_cutoff(Jlor))
+        @test real_memory_kernel_ft.(Jlor,ωtest) ≈ lor_ker_re.(ωtest)
     end
 
     @testset "InversePolyKernelSD" begin

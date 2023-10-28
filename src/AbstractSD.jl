@@ -121,6 +121,38 @@ spectral density `J` at a given frequency `ω`.
 imag_memory_kernel_ft(J::AbstractSD, ω) = π*J(ω)
 
 """
+    real_memory_kernel_ft(J::AbstractSD, ω)
+
+Calculate the real part of the Fourier-transform of the  memory kernel for a
+spectral density `J` at a given frequency `ω`.
+
+# Arguments
+- `J::AbstractSD`: The spectral density.
+- `ω`: The frequency at which the real part of the Fourier-transform of the memory kernel is evaluated.
+
+# Returns
+- The real part of the Fourier-transform of the memory kernel for the spectral density `J` at the given frequency `ω`.
+
+"""
+real_memory_kernel_ft(J::AbstractSD, ω) = kramers_kronig(ω -> imag_memory_kernel_ft(J,ω), ω; cutoff=frequency_cutoff(J))
+
+"""
+    memory_kernel_ft(J::AbstractSD, ω)
+
+Calculate the Fourier-transform of the  memory kernel for a
+spectral density `J` at a given frequency `ω`.
+
+# Arguments
+- `J::AbstractSD`: The spectral density.
+- `ω`: The frequency at which the Fourier-transform of the memory kernel is evaluated.
+
+# Returns
+- The Fourier-transform of the memory kernel for the spectral density `J` at the given frequency `ω`.
+
+"""
+memory_kernel_ft(J::AbstractSD, ω) = real_memory_kernel_ft(J, ω) + 1im*imag_memory_kernel_ft(J, ω)
+
+"""
     frequency_cutoff(J::AbstractSD; tol=eps())
 
 Return the frequency cutoff of the spectral density `J` to accuracy set

@@ -34,4 +34,10 @@ Construct a InversePolyKernelSD spectral density with the given coefficients.
 """
 InversePolyKernelSD(coeffs::AbstractVector) = InversePolyKernelSD(length(coeffs)-1, ComplexF64.(coeffs))
 
-sd(J::InversePolyKernelSD, ω) = imag(inv(sum([J.coeffs[k+1]*ω^k for k in 0:J.deg])))/π
+sd(J::InversePolyKernelSD, ω) = imag_memory_kernel_ft(J, ω)/π
+
+imag_memory_kernel_ft(J::InversePolyKernelSD, ω) = imag(memory_kernel_ft(J, ω))
+
+real_memory_kernel_ft(J::InversePolyKernelSD, ω) = real(memory_kernel_ft(J, ω))
+
+memory_kernel_ft(J::InversePolyKernelSD, ω) = inv(sum([J.coeffs[k+1]*ω^k for k in 0:J.deg]))
