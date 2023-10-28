@@ -38,6 +38,18 @@ using Test
         @test SingularIntegrals.hadamard_quadgk(x -> log(x+1), x -> 1/(x+1), 0.0, 2.0, 1.0)[1] ≈ -3*log(9)/4
     end
 
+    @testset "Weak Coupling" begin
+        α, ω0, Γ = rand(), 2*rand(), rand()/10
+        Jlor = LorentzianSD(α, ω0, Γ)
+        T = 0.1
+        ωB = 1.0
+        ωc = frequency_cutoff(Jlor; tol=1e-8)
+        @test isfinite(WeakCoupling.weak_coupling_Σ(Jlor, ωB; ωcutoff=ωc))
+        @test isfinite(WeakCoupling.weak_coupling_Σprime(Jlor, ωB; ωcutoff=ωc))
+        @test isfinite(WeakCoupling.weak_coupling_Δ(Jlor, ωB, 1/T; ωcutoff=ωc))
+        @test isfinite(WeakCoupling.weak_coupling_Δprime(Jlor, ωB, 1/T; ωcutoff=ωc))
+    end
+
     @testset "Memory kernels" begin
         Jlor = LorentzianSD(rand()*1.5, rand(), rand()/2)
         ωtest = rand(50)*5
