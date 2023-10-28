@@ -9,3 +9,8 @@ Modules = [SpectralDensities]
 ```@autodocs
 Modules = [WeakCoupling]
 ```
+
+## SingularIntegrals
+```@autodocs
+Modules = [SingularIntegrals]
+```
