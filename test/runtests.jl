@@ -43,4 +43,13 @@ using Test
         ωtest = rand(50)*5
         @test imag_memory_kernel_ft.(Jlor,ωtest) ≈ π*Jlor.(ωtest)
     end
+
+    @testset "InversePolyKernelSD" begin
+        α, ω0, Γ = rand(), 2*rand(), rand()/10
+        coeffs = [ω0^2/α, -1im*Γ/α, -1/α]
+        Jlor = LorentzianSD(α, ω0, Γ)
+        Jipk = InversePolyKernelSD(coeffs)
+        ωtest = rand(20)
+        @test Jlor.(ωtest) ≈ Jipk.(ωtest)
+    end
 end

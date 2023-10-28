@@ -35,6 +35,10 @@ include("GaussianCutoffSD.jl")
 
 export GaussianCutoffSD
 
+include("InversePolyKernelSD.jl")
+
+export InversePolyKernelSD
+
 module WeakCoupling
     using ForwardDiff
     using QuadGK
