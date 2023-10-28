@@ -41,3 +41,5 @@ sdoverω(J::HardCutoffSD, ω) = abs(ω) > J.ωcutoff ? zero(ω) : sdoverω(J.J, 
 reorganisation_energy(J::HardCutoffSD) = quadgk(ω -> sdoverω(J.J,ω), 0.0, J.ωcutoff)[1]
 reorganisation_energy(J::HardCutoffSD{OhmicSD}) = J.J.α*J.ωcutoff
 reorganisation_energy(J::HardCutoffSD{PolySD}) = J.J.α*J.ωcutoff^J.J.n/J.J.n
+
+frequency_cutoff(J::HardCutoffSD; tol=eps()) = J.ωcutoff

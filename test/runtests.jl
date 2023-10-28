@@ -52,4 +52,22 @@ using Test
         ωtest = rand(20)
         @test Jlor.(ωtest) ≈ Jipk.(ωtest)
     end
+
+    @testset "Frequency cutoffs" begin
+        ωcutoff = 10*rand()
+        Johm = OhmicSD(1)
+        Jhard = HardCutoffSD(Johm, ωcutoff)
+        Jexp = ExponentialCutoffSD(Johm, ωcutoff)
+        Jgauss = GaussianCutoffSD(Johm, ωcutoff)
+        @test frequency_cutoff(Johm) == Inf
+        @test frequency_cutoff(Jhard) == ωcutoff
+        @test frequency_cutoff(Jexp; tol=1/ℯ) ≈ ωcutoff
+        @test frequency_cutoff(Jgauss; tol=1/ℯ) ≈ ωcutoff
+
+        α, ω0, Γ = rand(), 2*rand(), rand()/10
+        Jlor = LorentzianSD(α, ω0, Γ)
+        ωc1 = frequency_cutoff(Jlor; tol=1e-3)
+        ωc2 = frequency_cutoff(Jlor; tol=1e-5)
+        @test ωc1 <= ωc2 && Jlor(ωc1) >= Jlor(ωc2)
+    end
 end

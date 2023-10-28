@@ -39,3 +39,5 @@ sdoverω(J::ExponentialCutoffSD, ω) = sdoverω(J.J, ω)*exp(-ω/J.ωcutoff)
 
 reorganisation_energy(J::ExponentialCutoffSD{OhmicSD}) = J.J.α*J.ωcutoff
 reorganisation_energy(J::ExponentialCutoffSD{PolySD}) = J.J.α*J.ωcutoff^J.J.n*factorial(J.J.n-1)
+
+frequency_cutoff(J::ExponentialCutoffSD; tol=eps()) = -J.ωcutoff*log(tol)

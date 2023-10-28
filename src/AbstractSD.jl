@@ -119,3 +119,19 @@ spectral density `J` at a given frequency `ω`.
 
 """
 imag_memory_kernel_ft(J::AbstractSD, ω) = π*J(ω)
+
+"""
+    frequency_cutoff(J::AbstractSD; tol=eps())
+
+Return the frequency cutoff of the spectral density `J` to accuracy set
+by the tolerance parameter `tol`.
+
+# Arguments
+- `J::AbstractSD`: The spectral density.
+- `tol`: The tolerance at which to truncate the spectral density.
+
+# Returns
+- The frequency cutoff for the desired tolerance.
+
+"""
+frequency_cutoff(J::AbstractSD; tol=eps()) = typemax(tol)

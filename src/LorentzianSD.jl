@@ -49,6 +49,17 @@ function memory_kernel(J::LorentzianSD, τ)
     return J.α*exp(-J.Γ*τ/2)*sin(ω1*τ)/ω1
 end
 
+function frequency_cutoff(J::LorentzianSD; tol=eps())
+    ω1sq = 2*J.ω0^2 - J.Γ^2
+    ωmax = sqrt((ω1sq + sqrt(ω1sq^2 + 12*J.ω0^4))/6)
+    Jmax = J(ωmax)
+    ωstop = ωmax
+    while J(ωstop) > Jmax*tol
+        ωstop += J.Γ/10
+    end
+    return ωstop
+end
+
 """
     struct UnderdampedSD <: AbstractSD
 

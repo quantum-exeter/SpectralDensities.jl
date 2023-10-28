@@ -39,3 +39,5 @@ sdoverω(J::GaussianCutoffSD, ω) = sdoverω(J.J, ω)*exp(-(ω/J.ωcutoff)^2)
 
 reorganisation_energy(J::GaussianCutoffSD{OhmicSD}) = J.J.α*J.ωcutoff*sqrt(π)/2
 reorganisation_energy(J::GaussianCutoffSD{PolySD}) = J.J.α*J.ωcutoff^J.J.n*gamma(J.J.n/2)/2
+
+frequency_cutoff(J::GaussianCutoffSD; tol=eps()) = J.ωcutoff*sqrt(-log(tol))
