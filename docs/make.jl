@@ -4,8 +4,8 @@ using Documenter
 DocMeta.setdocmeta!(SpectralDensities, :DocTestSetup, :(using SpectralDensities); recursive=true)
 
 makedocs(;
-    modules=[SpectralDensities, WeakCoupling],
-    authors="Federico Cerisola <federico@cerisola.net",
+    modules=[SpectralDensities, WeakCoupling, SingularIntegrals],
+    authors="Federico Cerisola <federico@cerisola.net>",
     repo="https://github.com/quantum-exeter/SpectralDensities.jl/blob/{commit}{path}#{line}",
     sitename="SpectralDensities.jl",
     format=Documenter.HTML(;
