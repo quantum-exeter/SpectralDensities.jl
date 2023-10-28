@@ -91,3 +91,32 @@ function hadamard_quadgk(g, g′, a, b, x0=zero(promote_type(typeof(a),typeof(b)
     I1 = cauchy_quadgk(g′, a, b, x0; kws...)
     return (I0 + I1[1], I1[2:end]...)
 end
+
+"""
+    kramers_kronig(f, ω; cutoff=Inf, type=:real)
+
+Use the Kramers-Kronig relations to compute the analytic continuation of the function `f` at point `ω`.
+That is, if `type == :real` compute
+```math
+\\frac{1}{\\pi}\\int_{-\\infty}^{\\infty} \\frac{f(\\omega')}{\\omega'-\\omega} \\mathrm{d}\\omega',
+```
+and if `type == :imag` compute
+```math
+-\\frac{1}{\\pi}\\int_{-\\infty}^{\\infty} \\frac{f(\\omega')}{\\omega'-\\omega} \\mathrm{d}\\omega'.
+```
+
+# Arguments
+- `f`: A function that is either the real or imaginary part of an analytic complex function.
+- `ω`: The point where to evaluate the analytic continuation of `f`.
+- `cutoff`: (optional, default=Inf) A cutoff that bounds the range of integration.
+- `type::Symbol`: (optional, default=:real) If `:real`, take `f` as the imaginary part and calculate the real part of the analytic continuation.
+If `:imag`, take `f` as the real part and calculate the imaginary part of the analytic continuation.
+
+# Returns
+- The real or imaginary part of the analytic continuation of `f` evaluated at `ω`.
+
+"""
+function kramers_kronig(f, ω; cutoff=Inf, type=:real)
+    sign = type == :real ? 1 : -1
+    return cauchy_quadgk(u -> sign*f(u + ω)/π, -cutoff, +cutoff)[1]
+end

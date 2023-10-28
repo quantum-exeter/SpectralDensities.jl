@@ -36,6 +36,15 @@ using Test
         @test SingularIntegrals.cauchy_quadgk(x -> 1/(x+2), -1.0, 1.0)[1] ≈ -log(3)/2
         @test SingularIntegrals.cauchy_quadgk(x -> x^2, 0.0, 2.0, 1.0)[1] ≈ 4.0
         @test SingularIntegrals.hadamard_quadgk(x -> log(x+1), x -> 1/(x+1), 0.0, 2.0, 1.0)[1] ≈ -3*log(9)/4
+
+        α, ω0, Γ = rand(), 2*rand(), rand()/10
+        Jlor = LorentzianSD(α, ω0, Γ)
+        ωc = frequency_cutoff(Jlor)
+        ωtest = rand(50)*5
+        lor_ker_re(ω) = α*(ω0^2 - ω^2)/((ω0^2 - ω^2)^2 + ω^2*Γ^2)
+        lor_ker_im(ω) = imag_memory_kernel_ft(Jlor,ω)
+        lor_ker_kk(ω) = SingularIntegrals.kramers_kronig(lor_ker_im, ω; cutoff=ωc)
+        @test lor_ker_kk.(ωtest) ≈ lor_ker_re.(ωtest)
     end
 
     @testset "Weak Coupling" begin

@@ -44,7 +44,7 @@ module SingularIntegrals
 
     include("SingularIntegrals.jl")
 
-    export cauchy_quadgk, hadamard_quadgk
+    export cauchy_quadgk, hadamard_quadgk, kramers_kronig
 end
 
 export SingularIntegrals
