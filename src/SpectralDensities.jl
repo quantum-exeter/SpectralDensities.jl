@@ -39,16 +39,26 @@ include("InversePolyKernelSD.jl")
 
 export InversePolyKernelSD
 
+module SingularIntegrals
+    using QuadGK
+
+    include("SingularIntegrals.jl")
+
+    export cauchy_quadgk, hadamard_quadgk
+end
+
+export SingularIntegrals
+
 module WeakCoupling
     using ForwardDiff
     using QuadGK
     using ..SpectralDensities
+    using ..SingularIntegrals
 
     include("WeakCoupling.jl")
 
     export weak_coupling_Δ, weak_coupling_Δprime,
-           weak_coupling_Σ, weak_coupling_Σprime,
-           cauchy_quadgk, hadamard_quadgk
+           weak_coupling_Σ, weak_coupling_Σprime
 end
 
 export WeakCoupling
