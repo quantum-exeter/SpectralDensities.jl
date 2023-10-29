@@ -97,12 +97,13 @@ where ``\\Theta`` is the Heavisde theta function.
 # Arguments
 - `J::AbstractSD`: The spectral density.
 - `τ`: The time delay at which the memory kernel is evaluated.
+- `ωcutoff`: (optinal, default: Inf) Frequency cutoff to be used when calculating the correlation function.
 
 # Returns
 - The memory kernel for the spectral density `J` at the given time delay `τ`.
 
 """
-memory_kernel(J::AbstractSD, τ) = τ <= zero(τ) ? zero(τ) : quadgk(ω -> 2*J(ω)*sin(ω*τ), zero(τ), Inf)[1]
+memory_kernel(J::AbstractSD, τ; ωcutoff=Inf) = τ <= zero(τ) ? zero(τ) : quadgk(ω -> 2*J(ω)*sin(ω*τ), zero(τ), ωcutoff)[1]
 
 """
     imag_memory_kernel_ft(J::AbstractSD, ω)
