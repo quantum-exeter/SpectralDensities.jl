@@ -37,6 +37,8 @@ sdoverω(J::DebyeSD, ω) = (2*J.α/π)*J.ωc^2/(J.ωc^2 + ω^2)
 
 reorganisation_energy(J::DebyeSD) = J.α*J.ωc
 
+memory_kernel(J::DebyeSD, τ) = τ <= zero(τ) ? zero(τ) : 2*J.α*J.ωc^2*exp(-J.ωc*τ)
+
 frequency_cutoff(J::DebyeSD; tol=eps()) = J.ωc*(1 + sqrt(1 - tol^2))/tol
 
 """
