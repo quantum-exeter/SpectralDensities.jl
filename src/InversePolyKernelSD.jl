@@ -40,4 +40,4 @@ imag_memory_kernel_ft(J::InversePolyKernelSD, ω) = imag(memory_kernel_ft(J, ω)
 
 real_memory_kernel_ft(J::InversePolyKernelSD, ω) = real(memory_kernel_ft(J, ω))
 
-memory_kernel_ft(J::InversePolyKernelSD, ω) = inv(sum([J.coeffs[k+1]*ω^k for k in 0:J.deg]))
+memory_kernel_ft(J::InversePolyKernelSD, ω) = inv(evalpoly(ω, J.coeffs))
