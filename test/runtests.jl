@@ -96,5 +96,15 @@ using Test
         ωc1 = frequency_cutoff(Jlor; tol=1e-3)
         ωc2 = frequency_cutoff(Jlor; tol=1e-5)
         @test ωc1 <= ωc2 && Jlor(ωc1) >= Jlor(ωc2)
+
+        α, ωc = 10*rand(), 20*rand()
+        Jdebye = DebyeSD(α, ωc)
+        ωmax = ωc
+        ωc1 = frequency_cutoff(Jdebye; tol=1e-3)
+        ωc2 = frequency_cutoff(Jdebye; tol=1e-5)
+        @test ωmax <= ωc1 && ωc1 <= ωc2
+        @test Jdebye(ωmax) >= Jdebye(ωc1) && Jdebye(ωc1) >= Jdebye(ωc2)
+        @test Jdebye(ωc1)/Jdebye(ωmax) ≈ 1e-3
+        @test Jdebye(ωc2)/Jdebye(ωmax) ≈ 1e-5
     end
 end
