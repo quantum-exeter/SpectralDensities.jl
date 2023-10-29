@@ -41,7 +41,7 @@ sdoverω(J::LorentzianSD, ω) = (J.α*J.Γ/π)/((ω^2 - J.ω0^2)^2 + (J.Γ*ω)^2
 
 reorganisation_energy(J::LorentzianSD) = J.α/J.ω0^2/2
 
-function memory_kernel(J::LorentzianSD, τ)
+function memory_kernel(J::LorentzianSD, τ; ωcutoff=Inf)
     if τ <= zero(τ)
         return zero(τ)
     end
@@ -51,7 +51,7 @@ end
 
 real_memory_kernel_ft(J::LorentzianSD, ω) = (J.α*(J.ω0^2 - ω^2))/((ω^2 - J.ω0^2)^2 + (J.Γ*ω)^2)
 
-memory_kernel_ft(J::LorentzianSD, ω; ωcutoff=Inf) = J.α/(J.ω0^2 - ω^2 - 1im*J.Γ*ω)
+memory_kernel_ft(J::LorentzianSD, ω) = J.α/(J.ω0^2 - ω^2 - 1im*J.Γ*ω)
 
 function frequency_cutoff(J::LorentzianSD; tol=eps())
     ω1sq = 2*J.ω0^2 - J.Γ^2
