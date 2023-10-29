@@ -59,7 +59,25 @@ using Test
         @test_broken isfinite(WeakCoupling.weak_coupling_Δprime(Jlor, ωB, 1/T; ωcutoff=ωc))
     end
 
-    @testset "Memory kernels" begin
+    @testset "Memory kernels (time)" begin
+        ker(J,τ; ωcutoff=Inf) = quadgk(ω -> 2*J(ω)*sin(ω*τ), 0, ωcutoff)[1] # See AbstractSD
+
+        α, ω0, Γ = rand(), 2*rand(), rand()/10
+        Jlor = LorentzianSD(α, ω0, Γ) 
+        τtest = LinRange(1e-3, 4, 20)
+        modv = memory_kernel.(Jlor, τtest)
+        kerv = ker.(Jlor, τtest; ωcutoff=frequency_cutoff(Jlor; tol=1e-8))
+        @test isapprox(modv, kerv; rtol=1e-3)
+
+        α, ωc = rand(), 10*rand()
+        Jdebye = DebyeSD(α, ωc) 
+        τtest = LinRange(1e-2, 1.0, 20)
+        modv = memory_kernel.(Jdebye, τtest)
+        kerv = ker.(Jdebye, τtest; ωcutoff=frequency_cutoff(Jdebye; tol=1e-8))
+        @test_broken maximum(abs.((modv - kerv)./modv)) < 1e-3
+    end
+
+    @testset "Memory kernels (frequency)" begin
         α, ω0, Γ = rand(), 2*rand(), rand()/10
         Jlor = LorentzianSD(α, ω0, Γ)
         ωtest = rand(50)*5
