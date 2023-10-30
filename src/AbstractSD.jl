@@ -135,7 +135,7 @@ spectral density `J` at a given frequency `ω`.
 - The real part of the Fourier-transform of the memory kernel for the spectral density `J` at the given frequency `ω`.
 
 """
-real_memory_kernel_ft(J::AbstractSD, ω) = kramers_kronig(ω -> imag_memory_kernel_ft(J,ω), ω; cutoff=frequency_cutoff(J))
+real_memory_kernel_ft(J::AbstractSD, ω) = SingularIntegrals.kramers_kronig(ω -> imag_memory_kernel_ft(J,ω), ω; cutoff=frequency_cutoff(J))
 
 """
     memory_kernel_ft(J::AbstractSD, ω)
