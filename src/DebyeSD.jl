@@ -39,6 +39,10 @@ reorganisation_energy(J::DebyeSD) = J.α*J.ωc
 
 memory_kernel(J::DebyeSD, τ; ωcutoff=Inf) = τ <= zero(τ) ? zero(τ) : 2*J.α*J.ωc^2*exp(-J.ωc*τ)
 
+real_memory_kernel_ft(J::DebyeSD, ω) = 2*J.α*J.ωc^3/(J.ωc^2 + ω^2)
+
+memory_kernel_ft(J::DebyeSD, ω) = 2*J.α*J.ωc^2/(J.ωc - 1im*ω)
+
 frequency_cutoff(J::DebyeSD; tol=eps()) = J.ωc*(1 + sqrt(1 - tol^2))/tol
 
 """

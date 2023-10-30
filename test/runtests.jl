@@ -87,6 +87,13 @@ using Test
 
         lor_ker_re(ω) = SingularIntegrals.kramers_kronig(ω -> imag_memory_kernel_ft(Jlor,ω), ω; cutoff=frequency_cutoff(Jlor))
         @test real_memory_kernel_ft.(Jlor,ωtest) ≈ lor_ker_re.(ωtest)
+
+        α, ωc = rand(), 2*rand()
+        Jdebye = DebyeSD(α, ωc)
+        ωtest = LinRange(0, 10*ωc, 100)
+        @test imag_memory_kernel_ft.(Jdebye,ωtest) ≈ π*Jdebye.(ωtest)
+        @test imag_memory_kernel_ft.(Jdebye,ωtest) ≈ imag.(memory_kernel_ft.(Jdebye,ωtest))
+        @test real_memory_kernel_ft.(Jdebye,ωtest) ≈ real.(memory_kernel_ft.(Jdebye,ωtest))
     end
 
     @testset "InversePolyKernelSD" begin
