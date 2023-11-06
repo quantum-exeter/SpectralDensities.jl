@@ -34,6 +34,38 @@ Construct a InversePolyKernelSD spectral density with the given coefficients.
 """
 InversePolyKernelSD(coeffs::AbstractVector) = InversePolyKernelSD(length(coeffs)-1, ComplexF64.(coeffs))
 
+"""
+    InversePolyKernelSD(J::LorentzianSD)
+
+Construct a InversePolyKernelSD spectral density from a Lorentzian spectral density.
+
+# Arguments
+- `J::LorentzianSD`: The Lorentzian spectral density.
+
+# Returns
+- An instance of the InversePolyKernelSD that represents the Lorentzian spectral density.
+
+"""
+InversePolyKernelSD(J::LorentzianSD) = InversePolyKernelSD([J.ω0^2/J.α, -1im*J.Γ/J.α, -1/J.α])
+
+convert(InversePolyKernelSD, J::LorentzianSD) = InversePolyKernelSD(J)
+
+"""
+    InversePolyKernelSD(J::DebyeSD)
+
+Construct a InversePolyKernelSD spectral density from a Debye spectral density.
+
+# Arguments
+- `J::DebyeSD`: The Debye spectral density.
+
+# Returns
+- An instance of the InversePolyKernelSD that represents the Debye spectral density.
+
+"""
+InversePolyKernelSD(J::DebyeSD) = InversePolyKernelSD([1/(2*J.α*J.ωc), -1im/(2*J.α*J.ωc^2)])
+
+convert(InversePolyKernelSD, J::DebyeSD) = InversePolyKernelSD(J)
+
 sd(J::InversePolyKernelSD, ω) = imag_memory_kernel_ft(J, ω)/π
 
 imag_memory_kernel_ft(J::InversePolyKernelSD, ω) = imag(memory_kernel_ft(J, ω))

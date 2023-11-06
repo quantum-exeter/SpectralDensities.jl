@@ -98,11 +98,16 @@ using Test
 
     @testset "InversePolyKernelSD" begin
         α, ω0, Γ = rand(), 2*rand(), rand()/10
-        coeffs = [ω0^2/α, -1im*Γ/α, -1/α]
         Jlor = LorentzianSD(α, ω0, Γ)
-        Jipk = InversePolyKernelSD(coeffs)
+        Jipk = InversePolyKernelSD(Jlor)
         ωtest = rand(20)
         @test Jlor.(ωtest) ≈ Jipk.(ωtest)
+
+        α, ωc = 10*rand(), 20*rand()
+        Jdebye = DebyeSD(α, ωc)
+        Jipk = InversePolyKernelSD(Jdebye)
+        ωtest = rand(20)
+        @test Jdebye.(ωtest) ≈ Jipk.(ωtest)
     end
 
     @testset "Frequency cutoffs" begin
