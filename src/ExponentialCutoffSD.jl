@@ -35,7 +35,7 @@ the underlying spectral density `J` and the given frequency cutoff `ωcutoff`.
 """
 ExponentialCutoffSD(J, ωcutoff) = ExponentialCutoffSD(J, float(ωcutoff))
 
-sdoverω(J::ExponentialCutoffSD, ω) = sdoverω(J.J, ω)*exp(-ω/J.ωcutoff)
+sdoverω(J::ExponentialCutoffSD, ω) = sdoverω(J.J, ω)*exp(-abs(ω)/J.ωcutoff)
 
 reorganisation_energy(J::ExponentialCutoffSD{OhmicSD}) = J.J.α*J.ωcutoff
 reorganisation_energy(J::ExponentialCutoffSD{PolySD}) = J.J.α*J.ωcutoff^J.J.n*factorial(J.J.n-1)
