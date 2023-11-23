@@ -108,6 +108,17 @@ using Test
         Jipk = InversePolyKernelSD(Jdebye)
         ωtest = rand(20)
         @test Jdebye.(ωtest) ≈ Jipk.(ωtest)
+    
+        merged = [Jlor.ω0^2/Jlor.α, -Jlor.Γ/Jlor.α, -1/Jlor.α]
+        complx = [Jlor.ω0^2/Jlor.α, -1im*Jlor.Γ/Jlor.α, -1/Jlor.α]
+        coefre = [Jlor.ω0^2/Jlor.α, -1/Jlor.α]
+        coefim = [-Jlor.Γ/Jlor.α]
+        Jipk1 = InversePolyKernelSD(merged)
+        Jipk2 = InversePolyKernelSD(complx)
+        Jipk3 = InversePolyKernelSD(coefre, coefim)
+        ωtest = rand(20)
+        @test Jipk1.(ωtest) ≈ Jipk2.(ωtest)
+        @test Jipk1.(ωtest) ≈ Jipk3.(ωtest)
     end
 
     @testset "Frequency cutoffs" begin
