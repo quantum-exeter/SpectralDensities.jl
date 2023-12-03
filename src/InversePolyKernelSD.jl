@@ -36,49 +36,24 @@ Construct a InversePolyKernelSD spectral density with the given coefficients.
 
 """
 function InversePolyKernelSD(coeffs::Vector{<:Real})
-    re = zeros(length(coeffs))
-    im = zeros(length(coeffs))
-    for k in 1:length(coeffs)
-        if isodd(k)
-            re[k] = coeffs[k]
-        else
-            im[k] = coeffs[k]
-        end
-    end
-    return InversePolyKernelSD(length(coeffs)-1, Float64.(coeffs), re, im)
+    return InversePolyKernelSD(length(coeffs)-1, Float64.(coeffs), Float64.(coeffs[1:2:end]), Float64.(coeffs[2:2:end]))
 end
 
 function InversePolyKernelSD(coeffs::Vector{<:Complex})
-    re = zeros(length(coeffs))
-    im = zeros(length(coeffs))
-    merged = zeros(length(coeffs))
-    for k in 1:length(coeffs)
-        if isodd(k)
-            re[k] = real(coeffs[k])
-            merged[k] = re[k]
-        else
-            im[k] = imag(coeffs[k])
-            merged[k] = im[k]
-        end
-    end
-    return InversePolyKernelSD(length(coeffs)-1, merged, re, im)
+    return InversePolyKernelSD(real(coeffs[1:2:end]), imag(coeffs[2:2:end]))
 end
 
 function InversePolyKernelSD(real::Vector{<:Real}, imag::Vector{<:Real})
     len = length(real) + length(imag)
-    re = zeros(len)
-    im = zeros(len)
-    merged = zeros(len)
+    coeffs = zeros(len)
     for k in 1:len
         if isodd(k)
-            re[k] = real[1 + k ÷ 2]
-            merged[k] = re[k]
+            coeffs[k] = real[(k+1)÷2]
         else
-            im[k] = imag[k ÷ 2]
-            merged[k] = im[k]
+            coeffs[k] = imag[k÷2]
         end
     end
-    return InversePolyKernelSD(len-1, merged, re, im)
+    return InversePolyKernelSD(len-1, coeffs, real, imag)
 end
 
 """
@@ -119,4 +94,4 @@ imag_memory_kernel_ft(J::InversePolyKernelSD, ω) = imag(memory_kernel_ft(J, ω)
 
 real_memory_kernel_ft(J::InversePolyKernelSD, ω) = real(memory_kernel_ft(J, ω))
 
-memory_kernel_ft(J::InversePolyKernelSD, ω) = inv(evalpoly(ω, J.real) + 1im*evalpoly(ω, J.imag))
+memory_kernel_ft(J::InversePolyKernelSD, ω) = inv(evalpoly(ω^2, J.real) + 1im*ω*evalpoly(ω^2, J.imag))
