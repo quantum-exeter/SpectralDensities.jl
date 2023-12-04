@@ -95,3 +95,5 @@ imag_memory_kernel_ft(J::InversePolyKernelSD, ω) = imag(memory_kernel_ft(J, ω)
 real_memory_kernel_ft(J::InversePolyKernelSD, ω) = real(memory_kernel_ft(J, ω))
 
 memory_kernel_ft(J::InversePolyKernelSD, ω) = inv(evalpoly(ω^2, J.real) + 1im*ω*evalpoly(ω^2, J.imag))
+
+reorganisation_energy(J::InversePolyKernelSD) = 1/(2*J.coeffs[1])

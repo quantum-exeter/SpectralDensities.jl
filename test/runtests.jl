@@ -102,12 +102,14 @@ using Test
         Jipk = InversePolyKernelSD(Jlor)
         ωtest = rand(20)
         @test Jlor.(ωtest) ≈ Jipk.(ωtest)
+        @test reorganisation_energy(Jlor) ≈ reorganisation_energy(Jipk)
 
         α, ωc = 10*rand(), 20*rand()
         Jdebye = DebyeSD(α, ωc)
         Jipk = InversePolyKernelSD(Jdebye)
         ωtest = rand(20)
         @test Jdebye.(ωtest) ≈ Jipk.(ωtest)
+        @test reorganisation_energy(Jdebye) ≈ reorganisation_energy(Jipk)
     
         merged = [Jlor.ω0^2/Jlor.α, -Jlor.Γ/Jlor.α, -1/Jlor.α]
         complx = [Jlor.ω0^2/Jlor.α, -1im*Jlor.Γ/Jlor.α, -1/Jlor.α]
