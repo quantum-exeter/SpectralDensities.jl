@@ -150,4 +150,25 @@ using Test
         @test Jdebye(ωc1)/Jdebye(ωmax) ≈ 1e-3
         @test Jdebye(ωc2)/Jdebye(ωmax) ≈ 1e-5
     end
+
+    @testset "CompositeSD" begin
+        α1, ω01, Γ1 = 1, 4, 1.4
+        J1 = LorentzianSD(α1, ω01, Γ1)
+        
+        α2, ω02, Γ2 = 1.2, 12, 2.0
+        J2 = LorentzianSD(α2, ω02, Γ2)
+        
+        α3, ωc3 = 0.02, 1
+        J3 = DebyeSD(α3, ωc3)
+
+        J123 = J1 + J2 + J3;
+
+        ωs = 0:0.01:20;
+        J1s = J1.(ωs);
+        J2s = J2.(ωs);
+        J3s = J3.(ωs);
+        J123s = J123.(ωs);
+
+        @test (J1s + J2s + J3s) ≈ J123s
+    end
 end

@@ -41,6 +41,10 @@ include("InversePolyKernelSD.jl")
 
 export InversePolyKernelSD
 
+include("CompositeSD.jl")
+
+export CompositeSD
+
 module SingularIntegrals
     using QuadGK
 
