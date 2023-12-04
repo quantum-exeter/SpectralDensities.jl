@@ -6,7 +6,8 @@ using SpecialFunctions
 include("AbstractSD.jl")
 
 export AbstractSD, sd, sdoverω, reorganisation_energy
-export correlations, memory_kernel, imag_memory_kernel_ft, real_memory_kernel_ft, memory_kernel_ft, frequency_cutoff
+export correlations, memory_kernel, imag_memory_kernel_ft, real_memory_kernel_ft, memory_kernel_ft
+export frequency_cutoff, frequency_step
 
 include("OhmicSD.jl")
 

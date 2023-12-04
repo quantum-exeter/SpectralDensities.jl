@@ -168,3 +168,18 @@ by the tolerance parameter `tol`.
 
 """
 frequency_cutoff(J::AbstractSD; tol=eps()) = typemax(tol)
+
+"""
+    frequency_step(J::AbstractSD; tol=eps())
+
+Calculate an appropriate frequency step for accurate numerical
+discretisation of the spectral density `J`.
+
+# Arguments
+- `J::AbstractSD`: The spectral density.
+- `tol::Real`: (optional, default=eps()) The tolerance used to determine the appropriate frequency setp.
+
+# Returns
+- The calculated frequency step for discretisation at the given tolerance.
+"""
+frequency_step(J::AbstractSD; tol=eps()) = eps()
