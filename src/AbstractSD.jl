@@ -111,12 +111,12 @@ function correlations_real(J::AbstractSD, τ, β; ωcutoff=Inf)
 end
 
 """
-    correlations_imag(J::AbstractSD, τ, β)
+    correlations_imag(J::AbstractSD, τ)
 
 Calculate the imaginary part of the correlation function for a spectral density
 `J` at a given time delay `τ`, that is
 ```math
-\\mathrm{Re}[\\mathcal{C}(\\tau)] = -\\int_0^\\infty J(\\omega)\\sin(\\omega\\tau)\\mathrm{d}\\omega.
+\\mathrm{Im}[\\mathcal{C}(\\tau)] = -\\int_0^\\infty J(\\omega)\\sin(\\omega\\tau)\\mathrm{d}\\omega.
 ```
 
 # Arguments
