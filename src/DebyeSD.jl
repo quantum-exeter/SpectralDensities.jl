@@ -37,7 +37,7 @@ sdoverω(J::DebyeSD, ω) = (2*J.α/π)*J.ωc^2/(J.ωc^2 + ω^2)
 
 reorganisation_energy(J::DebyeSD) = J.α*J.ωc
 
-memory_kernel(J::DebyeSD, τ; ωcutoff=Inf) = τ <= zero(τ) ? zero(τ) : 2*J.α*J.ωc^2*exp(-J.ωc*τ)
+correlations_imag(J::DebyeSD, τ; ωcutoff=Inf) = -J.α*J.ωc^2*exp(-J.ωc*τ)
 
 real_memory_kernel_ft(J::DebyeSD, ω) = 2*J.α*J.ωc^3/(J.ωc^2 + ω^2)
 

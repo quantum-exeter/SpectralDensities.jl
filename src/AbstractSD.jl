@@ -65,7 +65,13 @@ reorganisation_energy(J::AbstractSD) = quadgk(ω -> sdoverω(J,ω), 0.0, Inf)[1]
 """
     correlations(J::AbstractSD, τ, β)
 
-Calculate the correlation function for a spectral density `J` at a given time delay `τ` and inverse temperature `β`.
+Calculate the correlation function for a spectral density `J` at a given time
+delay `τ` and inverse temperature `β`, that is
+```math
+\\mathcal{C}(\\tau) =
+\\int_0^\\infty J(\\omega)\\coth\\left(\\frac{\\hbar\\omega\\beta}{2}\\right)\\cos(\\omega\\tau)\\mathrm{d}\\omega
+-i\\int_0^\\infty J(\\omega)\\sin(\\omega\\tau)\\mathrm{d}\\omega.
+```
 
 # Arguments
 - `J::AbstractSD`: The spectral density.
@@ -76,12 +82,55 @@ Calculate the correlation function for a spectral density `J` at a given time de
 - The correlation function for the spectral density `J` at the given time delay `τ` and inverse temperature β.
 
 """
-function correlations(J::AbstractSD, τ, β)
-    IntRe(ω) = sd(J,ω)*cos(ω*τ)*tanh(ω*β/2)
-    IntIm(ω) = -sd(J,ω)*sin(ω*τ)
-    IRe = quadgk(IntRe, 0.0, Inf)[1]
-    IIm = quadgk(IntIm, 0.0, Inf)[1]
-    return IRe + 1im*IIm
+function correlations(J::AbstractSD, τ, β; ωcutoff=Inf)
+    return correlations_real(J, τ, β; ωcutoff=ωcutoff) + im*correlations_imag(J, τ; ωcutoff=ωcutoff)
+end
+
+"""
+    correlations_real(J::AbstractSD, τ, β)
+
+Calculate the real part of the correlation function for a spectral density `J`
+at a given time delay `τ` and inverse temperature `β`, that is
+```math
+\\mathrm{Re}[\\mathcal{C}(\\tau)] = \\int_0^\\infty J(\\omega)\\coth\\left(\\frac{\\hbar\\omega\\beta}{2}\\right)\\cos(\\omega\\tau)\\mathrm{d}\\omega.
+```
+
+# Arguments
+- `J::AbstractSD`: The spectral density.
+- `τ`: The time delay at which the correlation function is calculated.
+- `β`: The inverse temperature.
+
+# Returns
+- The real part of the correlation function for the spectral density `J` at the
+given time delay `τ` and inverse temperature `β`.
+
+"""
+function correlations_real(J::AbstractSD, τ, β; ωcutoff=Inf)
+    IRe = quadgk(sd(J,ω)*cos(ω*τ)*tanh(ω*β/2), zero(τ), ωcutoff)
+    return IRe[1]
+end
+
+"""
+    correlations_imag(J::AbstractSD, τ, β)
+
+Calculate the imaginary part of the correlation function for a spectral density
+`J` at a given time delay `τ`, that is
+```math
+\\mathrm{Re}[\\mathcal{C}(\\tau)] = -\\int_0^\\infty J(\\omega)\\sin(\\omega\\tau)\\mathrm{d}\\omega.
+```
+
+# Arguments
+- `J::AbstractSD`: The spectral density.
+- `τ`: The time delay at which the correlation function is calculated.
+
+# Returns
+- The imaginary part of the correlation function for the spectral density `J` at
+the given time delay `τ`.
+
+"""
+function correlations_imag(J::AbstractSD, τ; ωcutoff=Inf)
+    IIm = quadgk(-sd(J,ω)*sin(ω*τ), zero(τ), ωcutoff)
+    return IIm[1]
 end
 
 """
@@ -90,7 +139,7 @@ end
 Calculate the memory kernel for a spectral density `J` at a given time delay `τ`,
 that is
 ```math
-\\mathcal{K}(\\tau) = 2\\Theta(\\tau)\\int_0^\\infty J(\\omega)\\sin(\\omega)\\mathrm{d}\\omega,
+\\mathcal{K}(\\tau) = 2\\Theta(\\tau)\\int_0^\\infty J(\\omega)\\sin(\\omega\\tau)\\mathrm{d}\\omega.
 ```
 where ``\\Theta`` is the Heavisde theta function.
 
@@ -103,7 +152,7 @@ where ``\\Theta`` is the Heavisde theta function.
 - The memory kernel for the spectral density `J` at the given time delay `τ`.
 
 """
-memory_kernel(J::AbstractSD, τ; ωcutoff=Inf) = τ <= zero(τ) ? zero(τ) : quadgk(ω -> 2*J(ω)*sin(ω*τ), zero(τ), ωcutoff)[1]
+memory_kernel(J::AbstractSD, τ; ωcutoff=Inf) = τ <= zero(τ) ? zero(τ) : -2*correlations_imag(J, τ; ωcutoff=ωcutoff)
 
 """
     imag_memory_kernel_ft(J::AbstractSD, ω)
