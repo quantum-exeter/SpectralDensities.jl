@@ -42,8 +42,8 @@ sdoverω(J::LorentzianSD, ω) = (J.α*J.Γ/π)/((ω^2 - J.ω0^2)^2 + (J.Γ*ω)^2
 reorganisation_energy(J::LorentzianSD) = J.α/J.ω0^2/2
 
 function correlations_imag(J::LorentzianSD, τ; ωcutoff=Inf)
-    ω1 = sqrt(J.ω0^2 - J.Γ^2/4)
-    return -J.α*exp(-J.Γ*τ/2)*sin(ω1*τ)/(2*ω1)
+    ω1 = sqrt(complex(J.ω0^2 - J.Γ^2/4))
+    return -J.α*exp(-J.Γ*τ/2)*τ*real(sinc(ω1*τ/π))/2
 end
 
 real_memory_kernel_ft(J::LorentzianSD, ω) = (J.α*(J.ω0^2 - ω^2))/((ω^2 - J.ω0^2)^2 + (J.Γ*ω)^2)
