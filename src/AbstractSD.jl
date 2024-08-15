@@ -106,7 +106,7 @@ given time delay `τ` and inverse temperature `β`.
 
 """
 function correlations_real(J::AbstractSD, τ, β; ωcutoff=Inf)
-    IRe = quadgk(sd(J,ω)*cos(ω*τ)*tanh(ω*β/2), zero(τ), ωcutoff)
+    IRe = quadgk(ω -> sd(J,ω)*cos(ω*τ)*coth(ω*β/2), zero(τ), ωcutoff)
     return IRe[1]
 end
 
@@ -129,7 +129,7 @@ the given time delay `τ`.
 
 """
 function correlations_imag(J::AbstractSD, τ; ωcutoff=Inf)
-    IIm = quadgk(-sd(J,ω)*sin(ω*τ), zero(τ), ωcutoff)
+    IIm = quadgk(ω -> -sd(J,ω)*sin(ω*τ), zero(τ), ωcutoff)
     return IIm[1]
 end
 
